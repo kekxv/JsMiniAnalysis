@@ -56,7 +56,7 @@ let JsMiniAnalysis = function (option) {
         configurable: false,
         enumerable: false,
         get() {
-            return option.depth;
+            return depth;//option.depth;
         }
     });
     {
@@ -217,18 +217,13 @@ JsMiniAnalysis.prototype = {
 };
 
 JsMiniAnalysis.InitAll = function (depth) {
-    let dom = document.querySelectorAll("*[data-JsMiniAnalysis]");
-    for (let i in dom) {
-        if (dom.hasOwnProperty(i)) {
-            try {
-                new JsMiniAnalysis({
-                    dom: dom[i]
-                    , isReplace: true
-                    , depth: depth || 100
-                }).run();
-            } catch (e) {
+    try {
+        delete new JsMiniAnalysis({
+            dom: document.body
+            , isReplace: true
+            , depth: (depth || 100) + 1
+        }).run();
+    } catch (e) {
 
-            }
-        }
     }
 };

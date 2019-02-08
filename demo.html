@@ -29,22 +29,22 @@
     }
     {
         // 自动初始化
-        // JsMiniAnalysis.InitAll(3);
+        JsMiniAnalysis.InitAll(3);
     }
     {
-        // 自行控制
-        let dom = document.body;
-        console.time("body");
-        delete new JsMiniAnalysis({
-            dom: dom
-            , isReplace: true
-            , depth: 3
-            , data: {time:123456}
-            , cb: function () {
-                console.timeEnd("body");
-            }
-            , err: console.log
-        }).run();
+        // // 自行控制
+        // let dom = document.body;
+        // console.time("body");
+        // delete new JsMiniAnalysis({
+        //     dom: dom
+        //     , isReplace: true
+        //     , depth: 3
+        //     , data: {time:123456}
+        //     , cb: function () {
+        //         console.timeEnd("body");
+        //     }
+        //     , err: console.log
+        // }).run();
     }
 </script>
 </html>
