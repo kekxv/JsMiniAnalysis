@@ -103,9 +103,15 @@ JsMiniAnalysis.prototype = {
             if (this.$depth !== 1)
                 this.Next();
         } else {
-            this.GetData(this.Url, function (htmlTxt) {
-                self.$run(htmlTxt);
-            }, console.log);
+            if (this.$option.data === undefined) {
+                this.GetData(this.Url, function (htmlTxt) {
+                    self.$run(htmlTxt);
+                }, console.log);
+            } else {
+                this.PutJson(this.Url, this.$option.data, function (htmlTxt) {
+                    self.$run(htmlTxt);
+                }, console.log);
+            }
         }
         return this;
     },
@@ -161,6 +167,7 @@ JsMiniAnalysis.prototype = {
                 delete new JsMiniAnalysis({
                     dom: dom[i]
                     , isReplace: true
+                    , data: this.$option.data
                     , depth: this.$depth - 1
                     , cb: function () {
                         dLen--;
@@ -195,10 +202,9 @@ JsMiniAnalysis.prototype = {
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, same-origin, *omit
                 headers: {
-                    'user-agent': 'Mozilla/4.0 MDN Example',
-                    'content-type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                method: 'post', // *GET, POST, PUT, DELETE, etc.
                 mode: 'cors', // no-cors, cors, *same-origin
                 redirect: 'follow', // manual, *follow, error
                 referrer: 'no-referrer', // *client, no-referrer
