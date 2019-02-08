@@ -12,24 +12,38 @@
 </body>
 <script>
     {
-        // 自行控制
-        let dom = document.querySelectorAll("*[data-JsMiniAnalysis]");
-        for (let i = 0; i < dom.length; i++) {
-            if (dom.hasOwnProperty(i))
-                delete new JsMiniAnalysis({
-                    dom: dom[i]
-                    , isReplace: true
-                    , depth: 3
-                    , cb: function () {
-                        console.count(i);
-                    }
-                    , err: console.log
-                }).run();
-        }
+        // // 自行控制
+        // let dom = document.querySelectorAll("*[data-JsMiniAnalysis]");
+        // for (let i = 0; i < dom.length; i++) {
+        //     if (dom.hasOwnProperty(i))
+        //         delete new JsMiniAnalysis({
+        //             dom: dom[i]
+        //             , isReplace: true
+        //             , depth: 3
+        //             , cb: function () {
+        //                 console.count(i);
+        //             }
+        //             , err: console.log
+        //         }).run();
+        // }
     }
     {
         // 自动初始化
         // JsMiniAnalysis.InitAll(3);
+    }
+    {
+        // 自行控制
+        let dom = document.body;
+        console.time("body");
+        delete new JsMiniAnalysis({
+            dom: dom
+            , isReplace: true
+            , depth: 3
+            , cb: function () {
+                console.timeEnd("body");
+            }
+            , err: console.log
+        }).run();
     }
 </script>
 </html>

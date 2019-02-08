@@ -74,7 +74,6 @@ let JsMiniAnalysis = function (option) {
             }
         });
     }
-    if (this.Url === undefined) throw new Error("错误地址！");
     {
         let isReplace = this.$Attr.hasOwnProperty("data-replace");
         if (isReplace)
@@ -84,6 +83,7 @@ let JsMiniAnalysis = function (option) {
                 isReplace = true;
             }
         }
+        isReplace = this.Url !== undefined;
 
         Object.defineProperty(this, "isReplace", {
             configurable: false,
@@ -99,10 +99,14 @@ let JsMiniAnalysis = function (option) {
 JsMiniAnalysis.prototype = {
     run: function () {
         let self = this;
-        this.GetData(this.Url, function (htmlTxt) {
-            self.$run(htmlTxt);
-        }, console.log);
-
+        if (this.Url === undefined) {
+            if (this.$depth !== 1)
+                this.Next();
+        } else {
+            this.GetData(this.Url, function (htmlTxt) {
+                self.$run(htmlTxt);
+            }, console.log);
+        }
         return this;
     },
     $run: function (htmlTxt) {
@@ -129,7 +133,7 @@ JsMiniAnalysis.prototype = {
         this.$Dom.removeAttribute("data-JsMiniAnalysis");
         if (this.$depth !== 1)
             this.Next();
-        else{
+        else {
             (this.$option.cb || console.log)();
         }
     },
@@ -146,7 +150,7 @@ JsMiniAnalysis.prototype = {
         } else {
             dom = dom.concat([].slice.call(document.querySelectorAll("*[data-JsMiniAnalysis]")));
         }
-        if(dom.length === 0){
+        if (dom.length === 0) {
             (this.$option.cb || console.log)();
             return;
         }
@@ -160,7 +164,7 @@ JsMiniAnalysis.prototype = {
                     , depth: this.$depth - 1
                     , cb: function () {
                         dLen--;
-                        if(dLen===0){
+                        if (dLen === 0) {
                             (self.$option.cb || console.log)();
                         }
                     }
