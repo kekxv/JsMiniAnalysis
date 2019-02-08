@@ -216,12 +216,13 @@ JsMiniAnalysis.prototype = {
     }
 };
 
-JsMiniAnalysis.InitAll = function (depth) {
+JsMiniAnalysis.InitAll = function (depth,cb) {
     try {
         delete new JsMiniAnalysis({
             dom: document.body
             , isReplace: true
             , depth: (depth || 100) + 1
+            , cb: cb
         }).run();
     } catch (e) {
 
